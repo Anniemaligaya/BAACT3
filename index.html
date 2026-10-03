@@ -15,12 +15,12 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navContent">
-          <ul class="navbar-nav ms-auto align-items-center">
+          <ul class="navbar-nav ms-auto align-items-center" id="mainNav">
             <li class="nav-item"><a class="nav-link active" href="#hero">Overview</a></li>
             <li class="nav-item"><a class="nav-link" href="#details">Project Details</a></li>
             <li class="nav-item"><a class="nav-link" href="#steps">Steps</a></li>
-            <li class="nav-item ms-lg-3"><a class="btn btn-outline-light btn-sm px-3" href="login.html">Sign In</a></li>
-            <li class="nav-item ms-lg-2"><a class="btn btn-light text-success btn-sm px-3 fw-semibold" href="register.html">Register Account</a></li>
+            <li class="nav-item ms-lg-3" id="navSign"><a class="btn btn-outline-light btn-sm px-3" href="login.html">Sign In</a></li>
+            <li class="nav-item ms-lg-2" id="navReg"><a class="btn btn-light text-success btn-sm px-3 fw-semibold" href="register.html">Register Account</a></li>
           </ul>
         </div>
       </div>
@@ -139,6 +139,24 @@
 
     </section>
 
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script>
+      $(document).ready(function () {
+        var current = JSON.parse(localStorage.getItem("portalCurrent") || "null");
+        if (current) {
+          $("#navSign").hide();
+          $("#navReg").hide();
+          $("#mainNav").append(
+            '<li class="nav-item ms-lg-3 text-white fw-semibold small">Hi, ' + current.name + '</li>' +
+            '<li class="nav-item ms-lg-2"><button id="btnExit" class="btn btn-outline-light btn-sm px-3">Sign Out</button></li>'
+          );
+          $("#btnExit").on("click", function () {
+            localStorage.removeItem("portalCurrent");
+            window.location.reload();
+          });
+        }
+      });
+    </script>
   </body>
 </html>
